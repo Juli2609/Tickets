@@ -5,6 +5,10 @@ namespace Tickets.Data
 {
     public class DataContext : DbContext
     {
+        public DataContext()
+        {
+
+        }
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
@@ -17,7 +21,7 @@ namespace Tickets.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Ticket>().HasIndex(t => t.Name).IsUnique();
-            modelBuilder.Entity<Entrance>().HasIndex(e => e.Description).IsUnique();
+            modelBuilder.Entity<Ticket>().HasIndex("Id", "EntranceId").IsUnique();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace Tickets.Data.Entities
@@ -8,11 +8,14 @@ namespace Tickets.Data.Entities
     {
         public int Id { get; set; }
 
-       /// [Display(Name = "Descripción")]
-        ///[MaxLength(70, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        public String Description { get; set; }
 
-        public ICollection<Ticket> Tickets { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Descripción")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string Description { get; set; }
+
+        public ICollection<Ticket> tickets { get; set; }
+
 
 
     }

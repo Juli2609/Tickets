@@ -1,24 +1,29 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations;
+
 namespace Tickets.Data.Entities
 {
     public class Ticket
     {
         public int Id { get; set; }
-        public bool WasUsed { get; set; }
 
-        ///[Display(Name = "Documento")]
-        ///[MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-        ///[Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        [Display(Name = "Estado del ticket")]
+        public bool? WasUsed { get; set; }
+
+        [Display(Name = "Nombre")]
+        [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
+        public string? Name { get; set; }
+
+        [Display(Name = "Documento")]
+        [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         public string? Document { get; set; }
 
-        ///play(Name = "Nombre Completo")]
-       /// [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-       //// [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public string? Name { get; set; }
+        [Display(Name = "Entrada")]
         public Entrance? Entrance { get; set; }
-        public DateTime? Date { get; set; }
 
+        [Display(Name = "Fecha y hora")]
+        public DateTime? Date { get; set; }
 
     }
 }

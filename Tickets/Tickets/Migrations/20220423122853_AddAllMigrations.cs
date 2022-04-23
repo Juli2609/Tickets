@@ -15,7 +15,7 @@ namespace Tickets.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,9 +28,9 @@ namespace Tickets.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WasUsed = table.Column<bool>(type: "bit", nullable: false),
-                    Document = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    WasUsed = table.Column<bool>(type: "bit", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Document = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     EntranceId = table.Column<int>(type: "int", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -45,15 +45,16 @@ namespace Tickets.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entrances_Description",
-                table: "Entrances",
-                column: "Description",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_EntranceId",
                 table: "Tickets",
                 column: "EntranceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_Id_EntranceId",
+                table: "Tickets",
+                columns: new[] { "Id", "EntranceId" },
+                unique: true,
+                filter: "[EntranceId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_Name",

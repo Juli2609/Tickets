@@ -3,19 +3,19 @@
 @{
     ViewData["Title"] = "CheckTicket";
 }
-
+<div class="text-center">
 
 @if(TempData["Message"] != null)
 {
 <span class="text-danger"> @Html.Encode(TempData["Message"])</span>
 }
 <hr />  
-@if(TempData["Name"] != "")
+@if(TempData["Name"] != null)
 {
 <span class="text-danger"> @Html.Encode(TempData["Name"])</span>
 }
 <br />  
-@if(TempData["Document"] != "")
+@if(TempData["Document"] != null)
 {
 <span class="text-danger"> @Html.Encode(TempData["Document"])</span>
 }
@@ -24,11 +24,17 @@
 {
 <span class="text-danger"> @Html.Encode(TempData["Date"])</span>
 }
+<br />  
+@if(TempData["Entrance"] != null)
+{
+<span class="text-danger"> @Html.Encode(TempData["Entrance"])</span>
+}
+</div>
 <span asp-validation-for="Id" class="text-danger"></span>
 
 <div class="row">
     <div class="col-md-4 offset-4">
-        <h3>Iniciar Sesión</h3>
+        <h3>Ingresar Código</h3>
         <form asp-action="CheckTicket">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
@@ -41,7 +47,7 @@
             
             <div class="form-group mt-2">
                 <input type="submit" value="Validar" class="btn btn-outline-primary" />
-                <a asp-action="Index" class="btn btn-outline-secondary">Regresar</a>
+                <a asp-action="Index" class="btn btn-outline-success">Regresar</a>
             </div>
         </form>
     </div>

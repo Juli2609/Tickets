@@ -1,21 +1,15 @@
 ﻿
-using System.Web.Mvc;
-using Tickets.Data.Entities;
+using Tickets.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tickets.Models
 {
-    public class TicketViewModel
+    public class TicketViewModel : RegisterTicketViewModel
     {
-        public int? Id { get; set; }
+        public int EntranceId { get; set; }
 
-        public bool? WasUsed { get; set; }
-        public string? Document { get; set; }
+        public IEnumerable<SelectListItem> Entrances { get; set; }
 
-        public string? Name { get; set; }
-        public int? EntranceId { get; set; }
-        ///public IEnumerable<SelectListItem> Entrances { get; set; }
-        public DateTime? Date { get; set; }
-
-        
     }
 }

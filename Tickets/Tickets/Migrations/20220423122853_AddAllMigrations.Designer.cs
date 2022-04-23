@@ -12,7 +12,7 @@ using Tickets.Data;
 namespace Tickets.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220423061138_AddAllMigrations")]
+    [Migration("20220423122853_AddAllMigrations")]
     partial class AddAllMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,12 +34,10 @@ namespace Tickets.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Description")
-                        .IsUnique();
 
                     b.ToTable("Entrances");
                 });
@@ -56,15 +54,17 @@ namespace Tickets.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Document")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<int?>("EntranceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("WasUsed")
+                    b.Property<bool?>("WasUsed")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -75,13 +75,17 @@ namespace Tickets.Migrations
                         .IsUnique()
                         .HasFilter("[Name] IS NOT NULL");
 
+                    b.HasIndex("Id", "EntranceId")
+                        .IsUnique()
+                        .HasFilter("[EntranceId] IS NOT NULL");
+
                     b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Tickets.Data.Entities.Ticket", b =>
                 {
                     b.HasOne("Tickets.Data.Entities.Entrance", "Entrance")
-                        .WithMany("Tickets")
+                        .WithMany("tickets")
                         .HasForeignKey("EntranceId");
 
                     b.Navigation("Entrance");
@@ -89,7 +93,7 @@ namespace Tickets.Migrations
 
             modelBuilder.Entity("Tickets.Data.Entities.Entrance", b =>
                 {
-                    b.Navigation("Tickets");
+                    b.Navigation("tickets");
                 });
 #pragma warning restore 612, 618
         }
